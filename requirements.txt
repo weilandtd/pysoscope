@@ -1,2 +1,11 @@
 jupyter
 ipython
+numpy
+h5py
+
+umap-learn
+scikit-learn
+pynndescent==0.5.8 
+matplotlib
+ipympl
+seaborn
