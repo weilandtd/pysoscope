@@ -1,4 +1,7 @@
+![logo](./images/pysoscope_logo_v1-01.png "pysoscope")
+
 # pysoscope
+
 
 ## Convert maldi files to numpy
 
