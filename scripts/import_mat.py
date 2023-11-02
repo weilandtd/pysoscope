@@ -10,11 +10,13 @@ from pysoscope.untargeted.convert import convert_maldi2numpy, save_numpy_data
 if __name__ == "__main__":
     # Parameters and files 
 
-    tol = 15e-6  # Peak picking tolerance default 15 ppm
+    tol = 10e-6  # Peak picking tolerance default 15 ppm
     ncpu = 36
-    file_names = ["R1_9AA", "R3_9AA", "R5_9AA", "R7_9AA",
-                  "R2_1_9AA","R6_1_9AA","R7_1_9AA", "R2_9AA", "R8_9AA" ,"R4_9AA",]
-    path = "./cm_data/"
+    file_names =["20211025-FBP-20um-normal-infusion_new","20211025-FBP-20um-pulse-chase-1",] 
+
+#"R1_9AA", "R3_9AA", "R5_9AA", "R7_9AA",
+                 # "R2_1_9AA","R6_1_9AA","R7_1_9AA", "R2_9AA", "R8_9AA" ,"R4_9AA"
+    path = "/scratch/gpfs/cm7897/raw mat files/"
 
     maldi_files = [path+file+".mat" for file in file_names]
 
@@ -30,6 +32,6 @@ if __name__ == "__main__":
     
     # Convert to numpy matrix and save
     matrix_maldi = [convert_maldi2numpy(md, target_peaks=real_unique_peaks_filtered, tol=tol, ncpu=ncpu) for md in maldi_datasets]
-    [save_numpy_data("./cm_data/"+name+".npz",img_data=Z, peaks=real_unique_peaks_filtered) for name,Z in zip(file_names,matrix_maldi)]
+    [save_numpy_data("scratch/gpfs/cm7897/output/"+name+".npz",img_data=Z, peaks=real_unique_peaks_filtered) for name,Z in zip(file_names,matrix_maldi)]
 
     print("Done")

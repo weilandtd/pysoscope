@@ -1,4 +1,5 @@
 import numpy as np
+import multiprocessing as mp 
 
 DEF_TOL = 15e-6
 
@@ -32,7 +33,7 @@ def convert_maldi2numpy(maldi_data, target_peaks=[], tol=DEF_TOL,ncpu=1):
 
     if ncpu == 1 :
         for k,(xi, yi) in enumerate(zip(x,y)):
-            ix, map_ix = map_peak_indices(this_mz[k], unique_peaks=target_peaks, tol=tol)
+            ix, map_ix = map_peak_indices(this_mz[k], target_peaks=target_peaks, tol=tol)
             Z[int(xi-1), int(yi-1), map_ix] = this_signal[k][ix]
     else:
         args = [( [mz,], {"unique_peaks":target_peaks,"tol":tol}) for mz in this_mz]
