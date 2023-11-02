@@ -1,5 +1,6 @@
-![logo](./images/pysoscope_logo_v1-01.png "pysoscope")
 
+ <img src="./images/pysoscope_logo_v1-01.png" width="150"/>
+ 
 # pysoscope
 
 
