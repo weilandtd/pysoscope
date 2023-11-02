@@ -1,17 +1,21 @@
 
  <img src="./images/pysoscope_logo_v1-01.png" width="150"/>
  
-# pysoscope
+# pysoscope 
 
+## Getting started
+You can install this package using `pip`
+```
+pip install - e /path/to/pysoscope
+```
 
-## Convert maldi files to numpy
-
-
-# Running the scripts on the cluster 
+## Running the scripts on the cluster 
 To run on the cluster first make the conda environment:
 
 ```
 conda create --name env_maldi --file reqrequirements.txt
+conda acivate env_maldi
+pip install - e /path/to/pysoscope
 ```
 
 Modify the SLURM script we recommend using `nano` or `vim`. 
