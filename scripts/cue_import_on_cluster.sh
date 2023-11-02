@@ -14,4 +14,11 @@ module purge
 module load anaconda3/2023.9
 conda activate env_maldi
 
-python convert_maldi_script.py
+
+# CHOOSE THE SCIRPT YOU NEED TO RUN BELOW
+# =======================================
+
+python import_mat_substract_background.py
+# python import_mat.py
+
+# =======================================

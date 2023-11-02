@@ -1,11 +1,14 @@
-jupyter
-ipython
 numpy
 h5py
-
-umap-learn
+anndata
 scikit-learn
+seaborn
+
+# Optional? 
+jupyter
+ipython
 pynndescent==0.5.8 
+umap-learn
 matplotlib
 ipympl
-seaborn
+
