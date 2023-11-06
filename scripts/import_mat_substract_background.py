@@ -1,4 +1,4 @@
-[save_numpy_data("/scratch/gpfs/cm7897/output/"+name+".npz",img_data=Z, peaks=real_unique_peaks_filtered) for name,Z in zip(file_names,matrix_maldi)]import numpy as np 
+import numpy as np 
 import multiprocessing as mp
 
 from pysoscope.io.mat import load_maldi_file_as_dict as load_maldi_file
