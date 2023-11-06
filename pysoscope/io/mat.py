@@ -17,8 +17,16 @@ def load_maldi_file_as_dict(filepath,):
 
     # Read the data
     for k, v in data.items():
-        if not ( k in ["peak_mz"], ["peak_sig"]):
-            maldi_data["data"][k] = [np.array(f[vi[0]])[0][0] for vi in v ]
+        if k in ("peak_mz","peak_sig"):
+            data = [np.array(f[vi[0]]) for vi in v ]
+            # Convert columns to rows
+            if data[0].shape[0] > 1:
+                data = [a[:,0] for a in data]
+            elif data[0].shape[1] > 1:
+                data = [a[0,:] for a in data]
+            else:
+                raise("Peak associated data is a matrix not a vector!")
+            maldi_data["data"][k] = data
         else:
             maldi_data["data"][k] = [np.array(f[vi[0]])[0] for vi in v ]
  
@@ -37,3 +45,5 @@ def load_maldi_file_as_dict(filepath,):
     maldi_data["data"]["y0"] = y[:,0]
     
     return maldi_data
+
+

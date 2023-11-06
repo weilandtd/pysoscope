@@ -36,7 +36,7 @@ def convert_maldi2numpy(maldi_data, target_peaks=[], tol=DEF_TOL,ncpu=1):
             ix, map_ix = map_peak_indices(this_mz[k], target_peaks=target_peaks, tol=tol)
             Z[int(xi-1), int(yi-1), map_ix] = this_signal[k][ix]
     else:
-        args = [( [mz,], {"unique_peaks":target_peaks,"tol":tol}) for mz in this_mz]
+        args = [( [mz,], {"target_peaks":target_peaks,"tol":tol}) for mz in this_mz]
         with mp.Pool(ncpu) as pool:
             mapped_indices = pool.map(map_peak_indices_wrapper, args)
             

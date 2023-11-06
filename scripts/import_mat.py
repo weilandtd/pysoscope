@@ -4,18 +4,16 @@ import multiprocessing as mp
 from pysoscope.io.mat import load_maldi_file_as_dict as load_maldi_file
 from pysoscope.untargeted.sample import subsample_maldi_file
 from pysoscope.untargeted.pick_peaks import get_unique_peaks
-from pysoscope.untargeted.convert import convert_maldi2numpy, save_numpy_data
-
+from pysoscope.io.numpy import convert_maldi2numpy, save_numpy_data
 
 if __name__ == "__main__":
     # Parameters and files 
 
-    tol = 10e-6  # Peak picking tolerance default 15 ppm
+    tol = 15e-6  # Peak picking tolerance default 15 ppm
     ncpu = 36
-    file_names =["20211025-FBP-20um-normal-infusion_new","20211025-FBP-20um-pulse-chase-1",] 
+    file_names =["EC1_1", "EC2_1", "EC2_2", "ED1_1","ED1_2", "ED2_1","EDL2_2","ED3_1", "ED3_2", "SC1_1" ,"SC2_1","SD1_1", "SD1_2", "SD2_1", "SD2_2", "SD3_1","SD3_2"]
+# "20211025-FBP-20um-normal-infusion_new","20211025-FBP-20um-pulse-chase-1"
 
-#"R1_9AA", "R3_9AA", "R5_9AA", "R7_9AA",
-                 # "R2_1_9AA","R6_1_9AA","R7_1_9AA", "R2_9AA", "R8_9AA" ,"R4_9AA"
     path = "/scratch/gpfs/cm7897/raw mat files/"
 
     maldi_files = [path+file+".mat" for file in file_names]
@@ -24,7 +22,7 @@ if __name__ == "__main__":
         maldi_datasets = pool.map(load_maldi_file, maldi_files)
     
     # Subsample peaks and get unique peakls
-    subsample = np.concatenate([subsample_maldi_file(md,N=500) for md in maldi_datasets])
+    subsample = np.concatenate([subsample_maldi_file(md,N=500) for md in maldi_datasets[0:3]])
 
     # Get unique sample peaks
     real_unique_peaks_filtered = get_unique_peaks(subsample, tol=tol)
@@ -32,6 +30,6 @@ if __name__ == "__main__":
     
     # Convert to numpy matrix and save
     matrix_maldi = [convert_maldi2numpy(md, target_peaks=real_unique_peaks_filtered, tol=tol, ncpu=ncpu) for md in maldi_datasets]
-    [save_numpy_data("scratch/gpfs/cm7897/output/"+name+".npz",img_data=Z, peaks=real_unique_peaks_filtered) for name,Z in zip(file_names,matrix_maldi)]
+    [save_numpy_data("/scratch/gpfs/cm7897/output/"+name+"_10ppm.npz",img_data=Z, peaks=real_unique_peaks_filtered) for name,Z in zip(file_names,matrix_maldi)]
 
     print("Done")

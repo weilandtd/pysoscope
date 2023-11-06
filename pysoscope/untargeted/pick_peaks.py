@@ -1,6 +1,6 @@
 import numpy as np 
 
-DEF_TOL = 15e-6
+DEF_TOL = 10e-6
 
 def get_unique_peaks(subsample, signal_to_noise_threshold=3, tol=DEF_TOL):
     # Sort peaks subsamples by peaks
