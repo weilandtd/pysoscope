@@ -73,5 +73,3 @@ def subsample_maldi_datasets_space(list_maldi_data, N=500, xlim=[0,25], ylim=[0,
     
     return this_subsamples_id
 
-
-

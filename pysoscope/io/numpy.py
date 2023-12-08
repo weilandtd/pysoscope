@@ -47,5 +47,5 @@ def convert_maldi2numpy(maldi_data, target_peaks=[], tol=DEF_TOL,ncpu=1):
     return Z
 
 
-def save_numpy_data(fname, img_data, peaks):
-    np.savez(fname, img_data=img_data, peaks=peaks, )
+def save_numpy_data(fname, **kwargs):
+    np.savez(fname, **kwargs)

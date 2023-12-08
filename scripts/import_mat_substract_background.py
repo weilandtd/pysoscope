@@ -27,6 +27,7 @@ if __name__ == "__main__":
     ## Subsample sample and backaground 
     index_samples_with_background = [file_names.index(name) for name in samples_with_background]
     subsample_bgd = subsample_maldi_datasets_space([maldi_datasets[i] for i in index_samples_with_background], N=500)
+    
     subsample_sig = subsample_maldi_datasets_space([maldi_datasets[i] for i in index_samples_with_background], 
                                                    ylim=[-15,15], xlim=[-15,15], N=500,measure_from="center") 
 
