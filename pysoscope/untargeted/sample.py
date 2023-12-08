@@ -2,7 +2,7 @@ import numpy as np
 from numpy.random import permutation as randperm
 
 
-def subsample_maldi_file(maldi_data, N=500):   
+def subsample_maldi_data(maldi_data, N=500):   
     n_data = len(maldi_data['data']['x'])
 
     # Pick N subsamples from a random index permutation
@@ -13,7 +13,20 @@ def subsample_maldi_file(maldi_data, N=500):
     
     return [(p,s) for p,s in zip(sample_peaks, sample_sigs)]
 
-def subsample_maldi_file_space(maldi_data, N=500, xlim=[0,25], ylim=[0,25], measure_from="topleft"):
+
+def subsample_maldi_datasets_naive(list_maldi_data, N=500):
+    
+    # Get subsamples 
+    this_subsamples = [subsample_maldi_data(md,N=N) for md in list_maldi_data]
+    
+    # Annotate sample id 
+    this_subsamples_id = [(p,s,i) for i, this_subsample in enumerate(this_subsamples) for p,s in this_subsample]
+    
+    return this_subsamples_id
+
+
+# TODO Make this
+def subsample_maldi_data_space(maldi_data, N=500, xlim=[0,25], ylim=[0,25], measure_from="topleft"):
     x = maldi_data["data"]["x0"]
     y = maldi_data["data"]["y0"]
     
@@ -47,4 +60,18 @@ def subsample_maldi_file_space(maldi_data, N=500, xlim=[0,25], ylim=[0,25], meas
     sample_sigs = np.concatenate([maldi_data['data']['peak_sig'][i] for i in ix])
     
     return [(p,s) for p,s in zip(sample_peaks, sample_sigs)]
+
+
+def subsample_maldi_datasets_space(list_maldi_data, N=500, xlim=[0,25], ylim=[0,25], measure_from="topleft"):
+    
+    # Get subsamples 
+    this_subsamples = [subsample_maldi_data_space(md,N=N,xlim=xlim,ylim=ylim,measure_from=measure_from) 
+                       for md in list_maldi_data]
+    
+    # Annotate sample id 
+    this_subsamples_id = [(p,s,i) for i, this_subsample in enumerate(this_subsamples) for p,s in this_subsample]
+    
+    return this_subsamples_id
+
+
 

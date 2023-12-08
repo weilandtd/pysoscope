@@ -19,7 +19,7 @@ conda activate env_maldi
 # CHOOSE THE SCIRPT YOU NEED TO RUN BELOW
 # =======================================
 
-#python import_mat_substract_background.py
-python import_mat.py
+python import_mat_substract_background.py
+#python import_mat.py
 
 # =======================================
