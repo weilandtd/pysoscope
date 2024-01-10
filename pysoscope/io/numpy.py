@@ -1,23 +1,7 @@
 import numpy as np
 import multiprocessing as mp 
 
-DEF_TOL = 15e-6
-
-
-def map_peak_indices(peaks, target_peaks=[], tol=DEF_TOL):
-    mapped_ix = []
-    ix = []
-    for i in range(len(peaks)):
-        this_ix = np.where(np.isclose(target_peaks, peaks[i], atol=tol*peaks[i]))[0]
-        if len(this_ix) > 0:
-            mapped_ix.append(this_ix[0])
-            ix.append(i)
-    return ix, mapped_ix
-
-
-def map_peak_indices_wrapper(arg):
-    args, kwargs = arg
-    return map_peak_indices(*args, **kwargs)
+from pysoscope.io.utils import map_peak_indices, map_peak_indices_wrapper, DEF_TOL
 
 
 def convert_maldi2numpy(maldi_data, target_peaks=[], tol=DEF_TOL,ncpu=1):
