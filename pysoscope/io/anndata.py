@@ -1,7 +1,10 @@
 import anndata
 
 import numpy as np
+import pandas as pd 
 import multiprocessing as mp 
+
+#from tqdm import tqdm
 
 from pysoscope.io.utils import map_peak_indices, map_peak_indices_wrapper, DEF_TOL
 
@@ -24,7 +27,7 @@ def convert_maldi_image_to_anndata(maldi_data, target_peaks=[], tol=DEF_TOL, ncp
     x = maldi_data["data"]["x0"]
     y = maldi_data["data"]["y0"]
 
-    data = np.zeros(len(x), len(target_peaks))
+    data = np.zeros( (len(x), len(target_peaks)) )
 
     # Map pixels to the
     this_mz = maldi_data["data"]["peak_mz"]
@@ -43,13 +46,21 @@ def convert_maldi_image_to_anndata(maldi_data, target_peaks=[], tol=DEF_TOL, ncp
             ix, map_ix = mapped_indices[k]
             data[k, map_ix] = this_signal[k][ix]
 
+    # Make sure data is numerical
+    data = data.astype(np.float64)
+
     if metadata is None:
         obs = dict(x=x, y=y)
-        vars = dict(peaks=target_peaks)
-        adata = anndata.AnnData(X=data, obs=obs,vars=vars)
+        var = pd.DataFrame(data = target_peaks, 
+                           index=[str(round(p,4)) for p in target_peaks],
+                           columns=["mz",])
+        adata = anndata.AnnData(X=data, obs=obs,var=var)
     else:
         obs = dict(x=x, y=y, **metadata)
-        adata = anndata.AnnData(X=data, obs=obs)
+        var = pd.DataFrame(data = target_peaks, 
+                           index=[str(round(p,4)) for p in target_peaks],
+                           columns=["mz",])
+        adata = anndata.AnnData(X=data, obs=obs, var=var)
 
     return adata
 

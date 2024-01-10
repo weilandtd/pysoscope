@@ -3,6 +3,7 @@ h5py
 anndata
 scikit-learn
 seaborn
+scanpy
 
 # Optional? 
 jupyter
