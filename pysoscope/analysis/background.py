@@ -1,7 +1,6 @@
 import numpy as np
 import anndata as ad
 
-
 def find_background_pixels(anndata_obj, sample_peaks, percentile, tol=15e-6):
     
     peaks = anndata_obj.var["mz"] # Get the m/z values of the peaks
