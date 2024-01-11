@@ -13,11 +13,11 @@ def convert_maldi_image_to_anndata(maldi_data, target_peaks=[], tol=DEF_TOL, ncp
     """AI is creating summary for convert_maldi2numpy
 
     Args:
-        maldi_data ([type]): [description]
-        target_peaks (list, optional): [description]. Defaults to [].
-        tol ([type], optional): [description]. Defaults to DEF_TOL.
-        ncpu (int, optional): [description]. Defaults to 1.
-        metadata ([type], optional): [description]. Defaults to None.
+        maldi_data ([type]): dictionary format a maldi image
+        target_peaks (list, optional): A list of m/z of peaks to pick. Defaults to [].
+        tol ([type], optional): Tolerance to differentiate peaks. Defaults to DEF_TOL.
+        ncpu (int, optional): number of cpus. Defaults to 1.
+        metadata ([dict], optional): Dictionary containing the annotation of the experimental conditions. Defaults to None.
 
     Returns:
         [type]: [description]
