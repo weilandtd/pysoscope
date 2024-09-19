@@ -13,7 +13,7 @@ pip install - e /path/to/pysoscope
 To run on the cluster first make the conda environment:
 
 ```
-conda create --name env_maldi --file reqrequirements.txt
+conda create --name env_maldi --file requirements.txt
 conda acivate env_maldi
 pip install - e /path/to/pysoscope
 ```
