@@ -26,8 +26,8 @@ def convert_maldi_image_to_anndata(maldi_data, target_peaks=[], tol=DEF_TOL, ncp
     """
 
     # Convert X/Z in maldi data
-    x = maldi_data["data"]["x0"]
-    y = maldi_data["data"]["y0"]
+    x = maldi_data["data"]["x"]
+    y = maldi_data["data"]["y"]
 
     data = np.zeros( (len(x), len(target_peaks)) )
 

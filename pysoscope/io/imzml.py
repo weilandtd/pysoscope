@@ -50,7 +50,7 @@ def load_imzml_file_as_dict(imzml_filepath):
         except ValueError:
             raise ValueError("Invalid input! Resolution must be a numeric value.")
 
-    maldi_data['fname'] = [imzml_filepath]
+    maldi_data['fname'] = name
 
     # Extract spectrum data (x, y positions, and binary data offsets)
     spectra = root.findall('.//ns:spectrum', ns)
