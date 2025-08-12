@@ -6,7 +6,7 @@
 ## Getting started
 You can install this package using `pip`
 ```
-pip install - e /path/to/pysoscope
+pip install -e /path/to/pysoscope
 ```
 
 ## Running the scripts on the cluster 
