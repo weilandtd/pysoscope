@@ -5,6 +5,7 @@ anndata
 scikit-learn
 seaborn
 scanpy
+pandas
 
 # Optional? 
 jupyter
