@@ -4,12 +4,14 @@ import numpy as np
 import pandas as pd 
 import multiprocessing as mp 
 
+from scipy.sparse import csr_matrix
+
 #from tqdm import tqdm
 
 from pysoscope.io.utils import map_peak_indices, map_peak_indices_wrapper, DEF_TOL
 
 
-def convert_maldi_image_to_anndata(maldi_data, target_peaks=[], tol=DEF_TOL, ncpu=1, metadata=None):
+def convert_maldi_image_to_anndata(maldi_data, target_peaks=[], tol=DEF_TOL, ncpu=1, metadata=None, path=None):
     """AI is creating summary for convert_maldi2numpy
 
     Args:
@@ -54,13 +56,20 @@ def convert_maldi_image_to_anndata(maldi_data, target_peaks=[], tol=DEF_TOL, ncp
         var = pd.DataFrame(data = target_peaks, 
                            index=[str(round(p,4)) for p in target_peaks],
                            columns=["mz",])
-        adata = anndata.AnnData(X=data, obs=obs,var=var)
+        adata = anndata.AnnData(X=csr_matrix(data), obs=obs,var=var)
+        adata.obs["file"] = maldi_data["fname"]
     else:
         obs = dict(x=x, y=y, **metadata)
         var = pd.DataFrame(data = target_peaks, 
                            index=[str(round(p,4)) for p in target_peaks],
                            columns=["mz",])
-        adata = anndata.AnnData(X=data, obs=obs, var=var)
+        adata = anndata.AnnData(X=csr_matrix(data), obs=obs, var=var)
+    
+    if path is None:
+        return adata
+    else:
+        adata.write_h5ad((path+maldi_data["fname"]+'.h5ad'))
+        print(maldi_data["fname"],': converted and written to file')
 
     return adata
 
