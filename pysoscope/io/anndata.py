@@ -65,6 +65,10 @@ def convert_maldi_image_to_anndata(maldi_data, target_peaks=[], tol=DEF_TOL, ncp
                            columns=["mz",])
         adata = anndata.AnnData(X=csr_matrix(data), obs=obs, var=var)
     
+    # fix coordinate type
+    adata.obs["x"] = adata.obs["x"].astype(float)
+    adata.obs["y"] = adata.obs["y"].astype(float)
+
     if path is None:
         return adata
     else:
